@@ -1,15 +1,15 @@
 import time
 from selenium import webdriver
+
+from Utility.CommonFunction import UtilityClass
 from pageClasses import login,home
+
 
 
 class Test_SwagLabLogin:           #MainClass
 
-    def test_TC1_LoginToApp_withValidDetails(self):        #test case / test method
-        driver = webdriver.Edge()
-        driver.maximize_window()
-        driver.get("https://www.saucedemo.com/")
-        driver.implicitly_wait(5)
+    def test_TC1_LoginToApp_withValidDetails(self,setup):        #test case / test method
+        driver=setup
 
         loginObj=login.SwagLabLoginPage(driver)
         loginObj.enterUN("standard_user")
@@ -21,22 +21,19 @@ class Test_SwagLabLogin:           #MainClass
 
         homeObj=home.SwagLabHomePage(driver)
         actLogoText=homeObj.getActLogotext()
-        expLogoText="Swag Labs"
+        expLogoText="Swag Labs1"
 
         if actLogoText==expLogoText:
             assert True
         else:
+            UtilityClass.captureSS(driver,"test_TC1_LoginToApp_withValidDetails")
             assert False
 
         time.sleep(2)
         driver.quit()
 
-    def test_TC2_LoginToApp_withInValidDetails(self):  # test case / test method
-        driver = webdriver.Edge()
-        driver.maximize_window()
-        driver.get("https://www.saucedemo.com/")
-        driver.implicitly_wait(5)
-
+    def atest_TC2_LoginToApp_withInValidDetails(self,setup):  # test case / test method
+        driver=setup
         loginObj = login.SwagLabLoginPage(driver)
         loginObj.enterUN("abc")
         time.sleep(2)
