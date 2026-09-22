@@ -35,3 +35,12 @@ def browser(request):
   return request.config.getoption("--browser")
 
 
+#1: It is hook for adding environment info into Report (customize info in report)
+@pytest.hookimpl(optionalhook=True)
+def pytest_metadata(metadata):
+   metadata['Project Name'] = 'Swag Labs'
+   metadata['Module Name'] = 'Login'
+   metadata['Automation Tester Name'] = 'Sanjay'
+
+
+
