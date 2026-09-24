@@ -1,5 +1,6 @@
 import logging
 from datetime import datetime
+import openpyxl
 
 
 class UtilityClass:
@@ -29,3 +30,19 @@ class UtilityClass:
         logger = logging.getLogger()
         logger.setLevel(logging.INFO)
         return logger
+
+    @staticmethod
+    def readDataFromExcel(rowIndex, colIndex):
+        workbook = openpyxl.load_workbook("D:\Python\Workspace\8thNov_pytestFramework\TestData\SwagLab.xlsx")
+        sheet = workbook['Sheet2']
+
+        data=sheet.cell(row=rowIndex,column=colIndex).value
+        return data
+
+    @staticmethod
+    def readDataFromExcelWithSheetName(sheetName, rowIndex, colIndex):
+        workbook = openpyxl.load_workbook("D:\Python\Workspace\8thNov_pytestFramework\TestData\SwagLab.xlsx")
+        sheet = workbook[sheetName]
+
+        data=sheet.cell(row=rowIndex,column=colIndex).value
+        return data
