@@ -26,13 +26,13 @@ def initializeBrowser(browser):
 
 #use to set default browserName
 def pytest_addoption(parser):
-   parser.addoption("--browser", action="store", default="edge")
+   parser.addoption("--browserName", action="store", default="edge")
 
 
 #this code is use to get browser value from cmd
 @pytest.fixture()
 def browser(request):
-  return request.config.getoption("--browser")
+  return request.config.getoption("--browserName")
 
 
 #1: It is hook for adding environment info into Report (customize info in report)
