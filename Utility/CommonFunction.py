@@ -1,6 +1,10 @@
 import logging
+import time
 from datetime import datetime
 import openpyxl
+
+from Utility.readProperties import ReadConfig
+from pageClasses import login
 
 
 class UtilityClass:
@@ -46,3 +50,17 @@ class UtilityClass:
 
         data=sheet.cell(row=rowIndex,column=colIndex).value
         return data
+
+
+    @staticmethod
+    def loginToApp(logger,driver):
+        loginObj = login.SwagLabLoginPage(driver)
+        loginObj.enterUN(ReadConfig.getAppUN())
+        logger.info("==UN Entered==")
+        time.sleep(2)
+        loginObj.enterPWD(ReadConfig.getAppPWD())
+        logger.info("==PWD Entered==")
+        time.sleep(2)
+        loginObj.clickOnLoginBtn()
+        logger.info("==clicked on login btn==")
+        time.sleep(2)

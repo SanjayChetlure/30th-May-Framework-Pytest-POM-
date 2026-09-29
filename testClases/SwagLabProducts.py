@@ -14,22 +14,10 @@ class Test_SwagLabProduct:           #MainClass
 
     logger=UtilityClass.loggen()
 
-    def loginToApp(self,driver):
-        loginObj = login.SwagLabLoginPage(driver)
-        loginObj.enterUN(ReadConfig.getAppUN())
-        self.logger.info("==UN Entered==")
-        time.sleep(2)
-        loginObj.enterPWD(ReadConfig.getAppPWD())
-        self.logger.info("==PWD Entered==")
-        time.sleep(2)
-        loginObj.clickOnLoginBtn()
-        self.logger.info("==clicked on login btn==")
-        time.sleep(2)
-
     @pytest.mark.product1
     def test_TC3_VerifyProductName(self,setup,request):        #test case / test method
         driver=setup
-        self.loginToApp(driver)
+        UtilityClass.loginToApp(self.logger,driver)
 
         homeObj=home.SwagLabHomePage(driver)
         actProductName=homeObj.getsauceLabBackpackProductName()
@@ -49,10 +37,9 @@ class Test_SwagLabProduct:           #MainClass
 
 
     @pytest.mark.product2
-    def test_TC4_VerifyProductPrice(self,setup,request):        #test case / test method
+    def test_TC4_VerifyProductSize(self,setup,request):        #test case / test method
         driver=setup
-        self.loginToApp(driver)
-
+        UtilityClass.loginToApp(self.logger, driver)
         homeObj=home.SwagLabHomePage(driver)
         actProductSize=homeObj.getAllProductSize()
         expProductSize=UtilityClass.readDataFromExcel(4,1)
@@ -65,6 +52,43 @@ class Test_SwagLabProduct:           #MainClass
             UtilityClass.captureSS(driver, request.node.name)
             assert False
 
+        time.sleep(2)
+        driver.quit()
+
+    @pytest.mark.product3
+    def test_TC5_VerifyBackpackProductPrice(self,setup,request):        #test case / test method
+        driver=setup
+        UtilityClass.loginToApp(self.logger, driver)
+        homeObj=home.SwagLabHomePage(driver)
+        actProductPrice=float(homeObj.getBackpackProductPrice())
+        expProductPrice=float(UtilityClass.readDataFromExcel(5,1))
+        print("act--",actProductPrice)
+        print("exp--",expProductPrice)
+        if actProductPrice==expProductPrice:
+            self.logger.info("==Act & Exp product price match==")
+            assert True
+        else:
+            self.logger.info("==Act & Exp product price mismatch==")
+            UtilityClass.captureSS(driver, request.node.name)
+            assert False
+        time.sleep(2)
+        driver.quit()
+
+    @pytest.mark.product4
+    def test_TC5_VerifyAllProductPrice(self,setup,request):        #test case / test method
+        driver=setup
+        UtilityClass.loginToApp(self.logger, driver)
+        homeObj=home.SwagLabHomePage(driver)
+        actAllProductPrice=homeObj.getallProductPrice()
+        expAllProductPrice=float(UtilityClass.readDataFromExcel(6,1))
+        print("act--",actAllProductPrice)
+        if actAllProductPrice==expAllProductPrice:
+            self.logger.info("==Act & Exp all product price match==")
+            assert True
+        else:
+            self.logger.info("==Act & Exp all product price mismatch==")
+            UtilityClass.captureSS(driver, request.node.name)
+            assert False
         time.sleep(2)
         driver.quit()
 
