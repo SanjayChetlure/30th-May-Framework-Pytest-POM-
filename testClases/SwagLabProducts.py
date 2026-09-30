@@ -75,7 +75,7 @@ class Test_SwagLabProduct:           #MainClass
         driver.quit()
 
     @pytest.mark.product4
-    def test_TC5_VerifyAllProductPrice(self,setup,request):        #test case / test method
+    def test_TC6_VerifyAllProductPrice(self,setup,request):        #test case / test method
         driver=setup
         UtilityClass.loginToApp(self.logger, driver)
         homeObj=home.SwagLabHomePage(driver)

@@ -11,6 +11,8 @@ class SwagLabHomePage:
     allProducts="//div[@class='inventory_item_name ']"
     backPackProductPrice="(//div[@class='inventory_item_price'])[1]"
     allProductPrice="//div[@class='inventory_item_price']"
+    sauceLabAddToCart="(//button[text()='Add to cart'])[1]"
+    cartLink="//a[@class='shopping_cart_link']"
 
     # 2: Initialize driver within Constructor
     def __init__(self,driver):
@@ -40,15 +42,19 @@ class SwagLabHomePage:
 
     def getallProductPrice(self):
         allProductPriceAddress=self.driver.find_elements(By.XPATH,self.allProductPrice)
-
         totalProductPrice=0
-
         for eachProductPriceAddress in allProductPriceAddress:
             price=eachProductPriceAddress.text     #$29.99 - text
             price=price[1:]                        #29.99 - text
             price=float(price)                     #29.99 - float
             totalProductPrice=totalProductPrice+price
-
         return totalProductPrice
+
+
+    def click1stProductAddToCart(self):
+        self.driver.find_element(By.XPATH,self.sauceLabAddToCart).click()
+
+    def clickOnCartLink(self):
+        self.driver.find_element(By.XPATH, self.cartLink).click()
 
 
