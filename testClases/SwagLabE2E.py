@@ -14,7 +14,7 @@ class Test_SwagLabProduct:           #MainClass
 
     logger=UtilityClass.loggen()
 
-    @pytest.mark.product1
+    @pytest.mark.E2E
     def test_TC7_VerifyE2EScenario(self,setup,request):        #test case / test method
         driver=setup
         UtilityClass.loginToApp(self.logger,driver)
